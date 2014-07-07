@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8" />
+	<script type="text/javascript" src='./jquery.min.js'></script>
+	<script type="text/javascript" src='./tank-1.1.js'></script>
+	<style type="text/css">
+	#tankMap{
+		background: #000;
+	}
+	</style>
+</head>
+<body onkeydown="moveTank();">
+<canvas id="tankMap" width='800px' height='600px'></canvas>
+</body>
+<script type="text/javascript">
+	
+var canvas = document.getElementById("tankMap");
+var tankMap = canvas.getContext("2d");
+
+
+var hero = new Tank(100,200,5,"#B1B100");
+
+drawTank(hero);
+
+
+
+
+
+function moveTank(){
+	var code = event.keyCode;
+	switch(code){
+		case 37:
+			hero.moveleft();break;
+		case 38:
+			hero.moveup();break;
+		case 39:
+			hero.moveright();break;
+		case 40:
+			hero.movedown();break;
+		default:
+			return false;
+	}
+}
+
+function refresh(){
+	tankMap.clearRect(0, 0, 800, 600);
+	drawTank(hero);
+	setTimeout(refresh, 33)
+}
+refresh();
+
+	
+
+
+
+</script>
+	
+
+</html>
