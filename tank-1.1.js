@@ -22,6 +22,25 @@ function Tank(x, y, direct, color){
 		this.x += this.speed;
 		this.direct = 2;
 	}
+
+	this.shot = function(){
+		switch(this.direct){
+				case 0:
+					var bulletX=this.x, bulletY=this.y+10;
+				case 1:
+					var bulletX=this.x+10, bulletY=this.y;
+				case 2:
+					var bulletX=this.x+30, bulletY=this.y+10;
+				case 3:
+					var bulletX=this.x+10, bulletY=this.y+30;
+		}
+		var bullet = new Bullet(bulletX,bulletY,this.direct,'hero',this);
+		heroBullets.push(bullet);
+		var timer=window.setInterval("heroBullets["+(heroBullets.length-1)+"].run()",50);
+			//把这个timer赋给这个子弹(js对象是引用传递!)
+		heroBullets[heroBullets.length-1].timer=timer;
+		
+	}
 }
 
 function drawTank(tank){
@@ -82,6 +101,57 @@ function drawTank(tank){
 			tankMap.stroke();
 			break;
 
+	}
+
+}
+
+/**
+ * 子弹类
+ * @param direct 子弹的方向
+ * @param speed 子弹的速度 默认为1
+ * @param type 子弹属于敌人的还是自己的
+ * @param tank 子弹属于哪个坦克 
+ */
+function Bullet(x,y,direct,speed,type,tank){
+	this.x = x;
+	this.y = y;
+	this.direct = direct;
+	this.speed = (typeof speed != "number")? 1 : speed <=0 ? 1 : speed;
+	this.type = type;
+	this.tank = tank;
+
+	this.timer = null;
+
+	this.run = function (){
+		switch(this.direct){
+			case 0:
+				this.x -= this.speed;break;
+			case 1:
+				this.y -= this.speed;break;
+			case 2:
+				this.x += this.speed;break;
+			case 3:
+				this.y += this.speed;break;
+			default:
+				break;
+		}
+	}
+}
+
+function drawBullet(bullet){
+	if(!arguments[0]){		//画出所有bullet
+		var len = heroBullets.length;
+		for(var i=0;i<len;i++){
+			$('#test').text(len);
+			var heroBullet = heroBullets[i];
+			tankMap.fillStyle = '#FEF26E';
+			tankMap.fillRect(heroBullet.x, heroBullet.y, 2, 2);
+		}
+			tankMap.fill();
+	}else if(bullet instanceof Bullet){	//画出刚出来的bullet
+		tankMap.fillStyle = '#FEF26E';
+		tankMap.fillRect(bullet.x, bullet.y, 2, 2);
+		tankMap.fill();
 	}
 
 }

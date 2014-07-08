@@ -218,35 +218,35 @@ function Tank(x,y,direct,color){
 		}
 	}
 
-		//画出自己的子弹,多说一句，你也可以把该函数封装到Hero类中
-		function drawHeroBullet(){
+	//画出自己的子弹,多说一句，你也可以把该函数封装到Hero类中
+	function drawHeroBullet(){
 
-				//现在要画出所有子弹
-				for( var i=0;i<heroBullets.length;i++){
-					var heroBullet=heroBullets[i];
-					//这里，我们加入了一句话，但是要知道这里加，是需要对整个程序有把握
-					if(heroBullet!=null&&heroBullet.isLive){
-						cxt.fillStyle="#FEF26E";
-						cxt.fillRect(heroBullet.x,heroBullet.y,2,2);
-					}
-				}
-
-		}
-
-		//这里我们还需要添加一个函数，用于画出敌人的子弹,当然，画出敌人的子弹和自己的子弹是可以合并的.
-		function drawEnemyBullet(){
-			
 			//现在要画出所有子弹
-				for( var i=0;i<enemyBullets.length;i++){
-					var etBullet=enemyBullets[i];
-					//这里，我们加入了一句话，但是要知道这里加，是需要对整个程序有把握
-					if(etBullet.isLive){
-						cxt.fillStyle="#00FEFE";
-						cxt.fillRect(etBullet.x,etBullet.y,2,2);
-					}
+			for( var i=0;i<heroBullets.length;i++){
+				var heroBullet=heroBullets[i];
+				//这里，我们加入了一句话，但是要知道这里加，是需要对整个程序有把握
+				if(heroBullet!=null&&heroBullet.isLive){
+					cxt.fillStyle="#FEF26E";
+					cxt.fillRect(heroBullet.x,heroBullet.y,2,2);
 				}
-		}
-	
+			}
+
+	}
+
+	//这里我们还需要添加一个函数，用于画出敌人的子弹,当然，画出敌人的子弹和自己的子弹是可以合并的.
+	function drawEnemyBullet(){
+		
+		//现在要画出所有子弹
+			for( var i=0;i<enemyBullets.length;i++){
+				var etBullet=enemyBullets[i];
+				//这里，我们加入了一句话，但是要知道这里加，是需要对整个程序有把握
+				if(etBullet.isLive){
+					cxt.fillStyle="#00FEFE";
+					cxt.fillRect(etBullet.x,etBullet.y,2,2);
+				}
+			}
+	}
+
 	//绘制坦克(敌人坦克和自己的坦克)
 	function drawTank(tank){
 	

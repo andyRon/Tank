@@ -10,8 +10,9 @@
 	}
 	</style>
 </head>
-<body onkeydown="moveTank();">
+<body onkeydown="keyboard();">
 <canvas id="tankMap" width='800px' height='600px'></canvas>
+<div id='test'></div>
 </body>
 <script type="text/javascript">
 	
@@ -23,11 +24,11 @@ var hero = new Tank(100,200,5,"#B1B100");
 
 drawTank(hero);
 
+var heroBullets = [];
 
 
 
-
-function moveTank(){
+function keyboard(){
 	var code = event.keyCode;
 	switch(code){
 		case 37:
@@ -38,14 +39,18 @@ function moveTank(){
 			hero.moveright();break;
 		case 40:
 			hero.movedown();break;
+		case 83: //s
+			hero.shot();break;
 		default:
 			return false;
 	}
+	refresh();
 }
 
 function refresh(){
 	tankMap.clearRect(0, 0, 800, 600);
 	drawTank(hero);
+	drawBullet()
 	setTimeout(refresh, 33)
 }
 refresh();
